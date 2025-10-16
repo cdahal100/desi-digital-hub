@@ -36,12 +36,49 @@ A comprehensive SaaS platform for Nepali and Bhutanese businesses, combining mod
 
 ## 🏗️ Tech Stack
 
-- **Frontend**: Next.js 14, React, TypeScript
-- **Styling**: Tailwind CSS with Nepali cultural design system
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS v4 with Nepali cultural design system
 - **Database**: PostgreSQL with Prisma ORM
 - **Authentication**: NextAuth.js
 - **Payments**: Stripe for subscriptions and marketplace
-- **Deployment**: Vercel (planned)
+- **Testing**: Jest, React Testing Library, Playwright
+- **CI/CD**: GitHub Actions with automated builds, tests, and deployments
+- **Containerization**: Docker with multi-stage builds
+- **Deployment**: Vercel with Docker support
+
+## 🔄 CI/CD Pipeline
+
+### Automated Workflows
+
+- **Build & Test**: Runs on every push and PR
+  - Multi-Node.js version testing (18.x, 20.x)
+  - ESLint code quality checks
+  - TypeScript compilation
+  - Jest unit tests
+  - Build verification
+
+- **Security Scanning**: Automated security audits
+  - npm audit for vulnerabilities
+  - Dependency security checks
+  - Production dependency analysis
+
+- **Docker Builds**: Multi-platform container builds
+  - Linux/AMD64 and ARM64 support
+  - Automated container registry publishing
+  - Optimized multi-stage builds
+
+- **Deployment Pipeline**:
+  - **Development Branch** → Preview deployments on Vercel
+  - **Master Branch** → Production deployments
+  - Automated dependency updates (weekly)
+
+### Testing Strategy
+
+- **Unit Tests**: Jest with React Testing Library
+- **Integration Tests**: API route testing
+- **E2E Tests**: Playwright cross-browser testing
+- **Visual Regression**: Automated screenshot comparison
+- **Performance**: Lighthouse CI integration
 
 ## 🎨 Cultural Design System
 
