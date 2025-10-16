@@ -1,34 +1,13 @@
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
+import Header from "@/components/layout/Header";
 import { ArrowRightIcon, StarIcon, GlobeAltIcon, CurrencyDollarIcon, HeartIcon, CalendarIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-himalayan-50">
       {/* Header/Navigation */}
-      <header className="relative z-10 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
-              {/* Enhanced Logo */}
-              <div className="flex items-center">
-                <img 
-                  src="/logo-enhanced.svg" 
-                  alt="Desi Digital Hub - Connecting Cultures Digitally" 
-                  className="h-16 sm:h-20 lg:h-24 w-auto"
-                />
-              </div>
-            </div>
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm">Features</a>
-              <a href="#pricing" className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm">Pricing</a>
-              <a href="#cultural" className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm">Cultural Services</a>
-              <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-900">Sign In</Button>
-              <Button variant="default" size="sm" className="shadow-sm">Get Started</Button>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <div className="relative overflow-hidden pt-20 pb-32 bg-gradient-to-br from-slate-50 via-white to-himalayan-50/30">

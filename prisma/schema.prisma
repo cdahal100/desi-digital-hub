@@ -20,16 +20,21 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  // Profile information
+  // Profile information based on prompt schema
   phone          String?
   bio            String?
   location       String?
-  businessType   String?
-  nepaliRegion   String?
+  businessType   String?   // Type of business they own/work for
+  nepaliRegion   String?   // Which region of Nepal they're from
   preferredLang  String?   @default("en") // "en" or "ne"
 
-  // Role-based access
+  // Role-based access - matching prompt requirements
   role UserRole @default(CUSTOMER)
+
+  // Subscription information
+  subscriptionTier   SubscriptionTier @default(FREE)
+  subscriptionStatus SubscriptionStatus @default(INACTIVE)
+  billingCycle       BillingCycle @default(MONTHLY)
 
   // Relationships
   accounts      Account[]
