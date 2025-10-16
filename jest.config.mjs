@@ -11,7 +11,7 @@ const config = {
   testEnvironment: 'jsdom',
   // Add more setup options before each test is run
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  moduleNameMapping: {
+  moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you based on your tsconfig.json paths)
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
     '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
@@ -29,7 +29,6 @@ const config = {
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
     '<rootDir>/src/**/*.(test|spec).{js,jsx,ts,tsx}',
-    '<rootDir>/tests/**/*.(test|spec).{js,jsx,ts,tsx}',
   ],
 }
 

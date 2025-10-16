@@ -10,31 +10,30 @@ test.describe('Desi Digital Hub Homepage', () => {
   });
 
   test('displays main navigation', async ({ page }) => {
-    await expect(page.getByRole('link', { name: 'About' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Services' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Community' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Contact' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Features' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Pricing' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Cultural Services' })).toBeVisible();
   });
 
   test('displays hero section', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: /Desi Digital Hub/ })).toBeVisible();
-    await expect(page.getByText(/Connecting Cultures Digitally/)).toBeVisible();
+    await expect(page.getByText(/Empower Your/)).toBeVisible();
+    await expect(page.getByText(/Nepali & Bhutanese/)).toBeVisible();
   });
 
   test('displays logo', async ({ page }) => {
-    await expect(page.getByAltText(/Desi Digital Hub/)).toBeVisible();
+    await expect(page.getByAltText(/Desi Digital Hub - Connecting Cultures Digitally/)).toBeVisible();
   });
 
   test('responsive design - mobile view', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await expect(page.getByRole('heading', { name: /Desi Digital Hub/ })).toBeVisible();
-    await expect(page.getByText(/Connecting Cultures Digitally/)).toBeVisible();
+    await expect(page.getByText(/Empower Your/)).toBeVisible();
+    await expect(page.getByText(/Nepali & Bhutanese/)).toBeVisible();
   });
 
   test('responsive design - tablet view', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await expect(page.getByRole('heading', { name: /Desi Digital Hub/ })).toBeVisible();
-    await expect(page.getByText(/Connecting Cultures Digitally/)).toBeVisible();
+    await expect(page.getByText(/Empower Your/)).toBeVisible();
+    await expect(page.getByText(/Nepali & Bhutanese/)).toBeVisible();
   });
 
   test('footer is present', async ({ page }) => {
@@ -42,10 +41,10 @@ test.describe('Desi Digital Hub Homepage', () => {
     await expect(page.getByText(/© 2025 Desi Digital Hub/)).toBeVisible();
   });
 
-  test('navigation links are clickable', async ({ page }) => {
-    const aboutLink = page.getByRole('link', { name: 'About' });
-    await expect(aboutLink).toBeVisible();
-    await expect(aboutLink).toHaveAttribute('href', '#about');
+  test('navigation links are present', async ({ page }) => {
+    const featuresLink = page.getByRole('link', { name: 'Features' });
+    await expect(featuresLink).toBeVisible();
+    await expect(featuresLink).toHaveAttribute('href', '#features');
   });
 
   test('page loads without console errors', async ({ page }) => {

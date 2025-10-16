@@ -5,43 +5,49 @@ describe('Home Page', () => {
   it('renders the main heading', () => {
     render(<Home />)
     
-    const heading = screen.getByRole('heading', { 
-      name: /desi digital hub/i 
-    })
+    const heading = screen.getByText(/Empower Your/i)
     expect(heading).toBeInTheDocument()
   })
 
-  it('renders the tagline', () => {
+  it('renders the business tagline', () => {
     render(<Home />)
     
-    const tagline = screen.getByText(/connecting cultures digitally/i)
-    expect(tagline).toBeInTheDocument()
+    // Use getAllBy to handle multiple elements and check the main heading
+    const nepaliElements = screen.getAllByText(/Nepali & Bhutanese/i)
+    expect(nepaliElements.length).toBeGreaterThan(0)
+    // Check that at least one is visible
+    expect(nepaliElements[0]).toBeInTheDocument()
   })
 
   it('renders the logo', () => {
     render(<Home />)
     
-    const logo = screen.getByAltText(/desi digital hub/i)
-    expect(logo).toBeInTheDocument()
+    // Get all logos and check the first one (header logo)
+    const logos = screen.getAllByAltText(/Desi Digital Hub - Connecting Cultures Digitally/i)
+    expect(logos.length).toBeGreaterThan(0)
+    expect(logos[0]).toBeInTheDocument()
   })
 
   it('renders the navigation menu', () => {
     render(<Home />)
     
-    const aboutLink = screen.getByRole('link', { name: /about/i })
-    const servicesLink = screen.getByRole('link', { name: /services/i })
-    const contactLink = screen.getByRole('link', { name: /contact/i })
+    const featuresLink = screen.getByRole('link', { name: /features/i })
+    const pricingLink = screen.getByRole('link', { name: /pricing/i })
     
-    expect(aboutLink).toBeInTheDocument()
-    expect(servicesLink).toBeInTheDocument()
-    expect(contactLink).toBeInTheDocument()
+    // For cultural services, get all and check the first one (header nav)
+    const culturalLinks = screen.getAllByRole('link', { name: /cultural services/i })
+    
+    expect(featuresLink).toBeInTheDocument()
+    expect(pricingLink).toBeInTheDocument()
+    expect(culturalLinks.length).toBeGreaterThan(0)
+    expect(culturalLinks[0]).toBeInTheDocument()
   })
 
-  it('renders the call-to-action section', () => {
+  it('renders the cultural services section', () => {
     render(<Home />)
     
-    const ctaHeading = screen.getByText(/ready to connect cultures/i)
-    expect(ctaHeading).toBeInTheDocument()
+    const culturalHeading = screen.getByText(/Cultural Services Hub/i)
+    expect(culturalHeading).toBeInTheDocument()
   })
 
   it('renders the footer', () => {
@@ -50,7 +56,7 @@ describe('Home Page', () => {
     const footer = screen.getByRole('contentinfo')
     expect(footer).toBeInTheDocument()
     
-    const footerText = screen.getByText(/© 2025 desi digital hub/i)
+    const footerText = screen.getByText(/© 2025 Desi Digital Hub/i)
     expect(footerText).toBeInTheDocument()
   })
 })
