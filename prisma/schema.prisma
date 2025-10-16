@@ -1,0 +1,369 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User and Authentication
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Profile information
+  phone          String?
+  bio            String?
+  location       String?
+  businessType   String?
+  nepaliRegion   String?
+  preferredLang  String?   @default("en") // "en" or "ne"
+
+  // Role-based access
+  role UserRole @default(CUSTOMER)
+
+  // Relationships
+  accounts      Account[]
+  sessions      Session[]
+  businesses    Business[]
+  eventBookings ServiceBooking[] @relation("CustomerBookings")
+  serviceProviderBookings ServiceBooking[] @relation("ServiceProviderBookings")
+  events        Event[]
+  reviews       Review[]
+  subscriptions Subscription[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Business and Directory
+model Business {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  category    BusinessCategory
+  subcategory String?
+  
+  // Contact information
+  email    String?
+  phone    String?
+  website  String?
+  address  Json? // { street, city, state, country, zipCode, coordinates }
+  
+  // Social media
+  socialMedia Json? // { facebook, instagram, twitter, etc. }
+  
+  // Business status
+  verified       Boolean @default(false)
+  active         Boolean @default(true)
+  featured       Boolean @default(false)
+  
+  // Tier-specific features
+  qrMenuUrl              String?
+  customDomain           String?
+  paymentGatewayConnected Boolean @default(false)
+  stripeAccountId        String?
+  
+  // Cultural information
+  culturalSpecialties String[] // ["nepali_cuisine", "religious_services", etc.]
+  languagesSupported  String[] @default(["en"])
+  
+  // Business metrics
+  monthlyRevenue    Decimal? @db.Decimal(10, 2)
+  setupCompleted    Boolean  @default(false)
+  lastActive        DateTime @default(now())
+  
+  // Relationships
+  ownerId       String
+  owner         User           @relation(fields: [ownerId], references: [id])
+  subscription  Subscription?
+  events        Event[]
+  serviceBookings ServiceBooking[]
+  reviews       Review[]
+  menuItems     MenuItem[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("businesses")
+}
+
+model MenuItem {
+  id          String  @id @default(cuid())
+  name        String
+  nameNepali  String?
+  description String?
+  price       Decimal @db.Decimal(8, 2)
+  category    String
+  available   Boolean @default(true)
+  imageUrl    String?
+  spiceLevel  Int?    // 1-5 scale for spice level
+  isVegetarian Boolean @default(false)
+  isVegan     Boolean @default(false)
+  
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("menu_items")
+}
+
+// Subscription and Billing
+model Subscription {
+  id                   String            @id @default(cuid())
+  tier                 SubscriptionTier
+  status               SubscriptionStatus @default(ACTIVE)
+  billingCycle         BillingCycle      @default(MONTHLY)
+  price                Decimal           @db.Decimal(8, 2)
+  currency             String            @default("USD")
+  
+  // Stripe integration
+  stripeSubscriptionId String?           @unique
+  stripeCustomerId     String?
+  stripePriceId        String?
+  
+  // Subscription period
+  startDate        DateTime
+  endDate          DateTime?
+  nextBillingDate  DateTime?
+  cancelledAt      DateTime?
+  
+  // Features enabled
+  featuresEnabled String[] // Array of feature flags
+  
+  // Relationships
+  userId     String    @unique
+  user       User      @relation(fields: [userId], references: [id])
+  businessId String?   @unique
+  business   Business? @relation(fields: [businessId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("subscriptions")
+}
+
+// Cultural Events and Services
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  titleNepali String?
+  description String?
+  category    EventCategory
+  
+  // Event details
+  startDate   DateTime
+  endDate     DateTime?
+  location    String
+  isOnline    Boolean   @default(false)
+  maxAttendees Int?
+  
+  // Pricing
+  ticketPrice    Decimal? @db.Decimal(8, 2)
+  isFree         Boolean  @default(true)
+  requiresBooking Boolean @default(false)
+  
+  // Cultural aspects
+  requiresPriest   Boolean @default(false)
+  culturalType     String? // "festival", "religious", "wedding", etc.
+  traditionalItems String[] // Required traditional items
+  
+  // Media
+  imageUrl    String?
+  imageUrls   String[] // Multiple images
+  
+  // Relationships
+  organizerId String
+  organizer   User     @relation(fields: [organizerId], references: [id])
+  businessId  String?
+  business    Business? @relation(fields: [businessId], references: [id])
+  serviceBookings ServiceBooking[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("events")
+}
+
+model ServiceBooking {
+  id              String        @id @default(cuid())
+  serviceType     ServiceType
+  status          BookingStatus @default(PENDING)
+  
+  // Booking details
+  eventDate       DateTime
+  duration        Int?          // Duration in hours
+  location        String
+  specialRequests String?
+  
+  // Pricing
+  price           Decimal       @db.Decimal(8, 2)
+  commissionRate  Decimal       @db.Decimal(4, 2) @default(10.00) // Platform commission %
+  commissionAmount Decimal?     @db.Decimal(8, 2)
+  
+  // Cultural requirements
+  culturalRequirements Json? // Specific cultural/religious requirements
+  
+  // Relationships
+  customerId        String
+  customer          User     @relation("CustomerBookings", fields: [customerId], references: [id])
+  serviceProviderId String
+  serviceProvider   User     @relation("ServiceProviderBookings", fields: [serviceProviderId], references: [id])
+  eventId           String?
+  event             Event?   @relation(fields: [eventId], references: [id])
+  businessId        String?
+  business          Business? @relation(fields: [businessId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("service_bookings")
+}
+
+// Reviews and Ratings
+model Review {
+  id        String @id @default(cuid())
+  rating    Int    // 1-5 stars
+  comment   String?
+  helpful   Int    @default(0) // Number of helpful votes
+  
+  // Relationships
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, businessId]) // One review per user per business
+  @@map("reviews")
+}
+
+// Enums
+enum UserRole {
+  CUSTOMER
+  BUSINESS_OWNER
+  SERVICE_PROVIDER
+  ADMIN
+}
+
+enum BusinessCategory {
+  RESTAURANT
+  RETAIL
+  PROFESSIONAL_SERVICE
+  CULTURAL_ORGANIZATION
+  RELIGIOUS_ORGANIZATION
+  EVENT_SERVICE
+  EDUCATION
+  HEALTHCARE
+  BEAUTY_WELLNESS
+  TRAVEL_TOURISM
+  REAL_ESTATE
+  TECHNOLOGY
+  OTHER
+}
+
+enum SubscriptionTier {
+  FREE
+  STARTER
+  MANAGED
+  AUTOMATION
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  PAST_DUE
+  INCOMPLETE
+  TRIALING
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+}
+
+enum EventCategory {
+  CULTURAL_FESTIVAL
+  RELIGIOUS_CEREMONY
+  WEDDING_CELEBRATION
+  BUSINESS_EVENT
+  COMMUNITY_GATHERING
+  EDUCATIONAL_WORKSHOP
+  FUNDRAISING
+  SPORTS_RECREATION
+  OTHER
+}
+
+enum ServiceType {
+  PRIEST_SERVICE
+  CATERING
+  PHOTOGRAPHY
+  DECORATION
+  MUSIC_ENTERTAINMENT
+  VENUE_RENTAL
+  TRADITIONAL_CLOTHING
+  FLOWER_ARRANGEMENT
+  TRANSPORTATION
+  OTHER
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}

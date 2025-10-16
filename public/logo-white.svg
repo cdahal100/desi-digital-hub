@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Cultural gradient - white version -->
+    <linearGradient id="culturalGradientWhite" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f0f9ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Mandala pattern - white version -->
+    <pattern id="mandalaPatternWhite" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="0.5" fill="rgba(255,255,255,0.3)"/>
+      <circle cx="4" cy="4" r="1.5" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.3"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background with subtle cultural pattern -->
+  <rect width="180" height="50" fill="url(#mandalaPatternWhite)" opacity="0.1"/>
+  
+  <!-- Main logo content -->
+  <g>
+    <!-- Stylized "D" letterform with cultural elements -->
+    <g transform="translate(8, 10)">
+      <!-- Letter D with cultural styling -->
+      <path d="M0 0 L0 30 L12 30 C20 30 25 25 25 15 C25 5 20 0 12 0 Z M6 6 L12 6 C16 6 19 9 19 15 C19 21 16 24 12 24 L6 24 Z" 
+            fill="url(#culturalGradientWhite)" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+      
+      <!-- Cultural accent dots -->
+      <circle cx="13" cy="10" r="1" fill="rgba(255,255,255,0.8)"/>
+      <circle cx="13" cy="20" r="1" fill="rgba(255,255,255,0.8)"/>
+      <circle cx="17" cy="15" r="0.5" fill="rgba(255,255,255,0.6)"/>
+    </g>
+    
+    <!-- Text "ESI DIGITAL HUB" -->
+    <text x="40" y="22" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="14" fill="white">
+      ESI DIGITAL HUB
+    </text>
+    
+    <!-- Tagline -->
+    <text x="40" y="36" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="8" fill="rgba(255,255,255,0.8)">
+      CONNECTING CULTURES DIGITALLY
+    </text>
+    
+    <!-- Cultural decorative element -->
+    <g transform="translate(170, 15)">
+      <circle cx="0" cy="0" r="2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
+      <circle cx="0" cy="0" r="1" fill="rgba(255,255,255,0.6)"/>
+      <path d="M-1.5 0 L1.5 0 M0 -1.5 L0 1.5" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+    </g>
+  </g>
+</svg>

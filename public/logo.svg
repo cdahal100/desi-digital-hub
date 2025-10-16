@@ -1,0 +1,82 @@
+<svg viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Cultural gradient definition -->
+    <linearGradient id="culturalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#dc267f;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f7931e;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Himalayan gradient definition -->
+    <linearGradient id="himalayanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle with cultural pattern -->
+  <circle cx="40" cy="40" r="35" fill="url(#culturalGradient)" opacity="0.1"/>
+  
+  <!-- Main logo symbol - stylized "D" with cultural motifs -->
+  <g transform="translate(10, 10)">
+    <!-- Outer ring representing unity and digital connection -->
+    <circle cx="30" cy="30" r="25" fill="none" stroke="url(#culturalGradient)" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Inner mandala-inspired pattern -->
+    <g fill="url(#himalayanGradient)">
+      <!-- Central diamond -->
+      <path d="M30 15 L40 25 L30 35 L20 25 Z" opacity="0.8"/>
+      
+      <!-- Surrounding petals -->
+      <circle cx="30" cy="20" r="3" opacity="0.6"/>
+      <circle cx="35" cy="25" r="3" opacity="0.6"/>
+      <circle cx="30" cy="40" r="3" opacity="0.6"/>
+      <circle cx="25" cy="25" r="3" opacity="0.6"/>
+      
+      <!-- Digital connection dots -->
+      <circle cx="30" cy="12" r="1.5" fill="#4f46e5"/>
+      <circle cx="42" cy="25" r="1.5" fill="#4f46e5"/>
+      <circle cx="30" cy="43" r="1.5" fill="#4f46e5"/>
+      <circle cx="18" cy="25" r="1.5" fill="#4f46e5"/>
+    </g>
+    
+    <!-- Stylized "D" letter -->
+    <path d="M25 18 L25 42 L32 42 Q38 42 38 30 Q38 18 32 18 Z" 
+          fill="url(#culturalGradient)" 
+          filter="url(#glow)"/>
+  </g>
+  
+  <!-- Company text -->
+  <g font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="700">
+    <!-- "Desi" in larger, bold text -->
+    <text x="85" y="35" 
+          font-size="24" 
+          fill="url(#culturalGradient)" 
+          letter-spacing="-0.5px">Desi</text>
+    
+    <!-- "Digital Hub" in modern font -->
+    <text x="85" y="55" 
+          font-size="16" 
+          fill="#1e293b" 
+          font-weight="600" 
+          letter-spacing="-0.3px">Digital Hub</text>
+  </g>
+  
+  <!-- Tagline -->
+  <text x="85" y="70" 
+        font-family="Inter, sans-serif" 
+        font-size="10" 
+        fill="#64748b" 
+        font-weight="400" 
+        letter-spacing="0.5px">CONNECTING CULTURES DIGITALLY</text>
+</svg>

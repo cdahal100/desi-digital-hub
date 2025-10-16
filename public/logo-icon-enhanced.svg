@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Enhanced cultural gradient -->
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#ea580c;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#eab308;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Himalayan gradient -->
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3730a3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#581c87;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gold accent -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Drop shadow -->
+    <filter id="iconShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="2" dy="2" result="offset"/>
+      <feFlood flood-color="#1e293b" flood-opacity="0.3"/>
+      <feComposite in2="offset" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle with gradient -->
+  <circle cx="32" cy="32" r="30" fill="url(#blueGradient)" filter="url(#iconShadow)"/>
+  
+  <!-- Outer decorative ring -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="url(#goldGradient)" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Inner mandala design -->
+  <g transform="translate(32, 32)">
+    <!-- Central diamond -->
+    <path d="M0 -16 L12 0 L0 16 L-12 0 Z" 
+          fill="url(#iconGradient)" 
+          opacity="0.9"/>
+    
+    <!-- Inner diamond -->
+    <path d="M0 -10 L8 0 L0 10 L-8 0 Z" 
+          fill="url(#goldGradient)" 
+          opacity="0.8"/>
+    
+    <!-- Cultural dots -->
+    <circle cx="0" cy="-8" r="2.5" fill="white" opacity="0.9"/>
+    <circle cx="8" cy="0" r="2.5" fill="white" opacity="0.9"/>
+    <circle cx="0" cy="8" r="2.5" fill="white" opacity="0.9"/>
+    <circle cx="-8" cy="0" r="2.5" fill="white" opacity="0.9"/>
+    
+    <!-- Cross lines -->
+    <path d="M-12 0 L12 0 M0 -12 L0 12" 
+          stroke="url(#goldGradient)" 
+          stroke-width="1.5" 
+          opacity="0.7"/>
+    
+    <!-- Central point -->
+    <circle cx="0" cy="0" r="3" fill="white"/>
+    <circle cx="0" cy="0" r="1.5" fill="url(#iconGradient)"/>
+  </g>
+  
+  <!-- "D" letterform integrated -->
+  <path d="M20 20 L20 44 L32 44 Q40 44 40 32 Q40 20 32 20 Z M26 26 L32 26 Q34 26 34 32 Q34 38 32 38 L26 38 Z" 
+        fill="white" 
+        opacity="0.95"/>
+  
+  <!-- Corner accents -->
+  <g opacity="0.6">
+    <circle cx="8" cy="8" r="2" fill="url(#goldGradient)"/>
+    <circle cx="56" cy="8" r="2" fill="url(#goldGradient)"/>
+    <circle cx="8" cy="56" r="2" fill="url(#goldGradient)"/>
+    <circle cx="56" cy="56" r="2" fill="url(#goldGradient)"/>
+  </g>
+  
+</svg>
