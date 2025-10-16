@@ -24,7 +24,8 @@ model User {
   phone          String?
   bio            String?
   location       String?
-  businessType   String?   // Type of business they own/work for
+  businessType   String?   // Type of business they own/operate
+  serviceType    String?   // Type of service they provide (for SERVICE_PROVIDER role)
   nepaliRegion   String?   // Which region of Nepal they're from
   preferredLang  String?   @default("en") // "en" or "ne"
 
@@ -298,7 +299,8 @@ model Review {
 // Enums
 enum UserRole {
   CUSTOMER
-  BUSINESS_OWNER
+  SMALL_BUSINESS
+  GROWING_BUSINESS
   SERVICE_PROVIDER
   ADMIN
 }

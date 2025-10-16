@@ -9,7 +9,8 @@ import Link from 'next/link'
 export default function SignUp() {
   const [formData, setFormData] = useState({
     role: 'CUSTOMER',
-    businessType: ''
+    businessType: '',
+    serviceType: ''
   })
   const [showEmailForm, setShowEmailForm] = useState(false)
   const [email, setEmail] = useState('')
@@ -93,9 +94,27 @@ export default function SignUp() {
     'Education',
     'Real Estate',
     'Travel & Tourism',
-    'Cultural Services',
     'Technology',
+    'Manufacturing',
+    'Import/Export',
     'Other'
+  ]
+
+  const serviceTypes = [
+    'Priest/Religious Services',
+    'Wedding Planning',
+    'Event Planning',
+    'Photography/Videography',
+    'Catering Services',
+    'Music/DJ Services',
+    'Decoration Services',
+    'Transportation Services',
+    'Cultural Teaching',
+    'Translation Services',
+    'Legal Services',
+    'Accounting Services',
+    'Consulting Services',
+    'Other Professional Services'
   ]
 
   return (
@@ -183,9 +202,10 @@ export default function SignUp() {
                 <label className="block text-base font-semibold text-gray-900 mb-3">Select your role:</label>
                 <div className="space-y-2">
                   {[
-                    { value: 'CUSTOMER', label: 'Customer', description: 'Looking for Nepali & Bhutanese businesses and services' },
-                    { value: 'BUSINESS_OWNER', label: 'Business Owner', description: 'I own a Nepali/Bhutanese business' },
-                    { value: 'SERVICE_PROVIDER', label: 'Service Provider', description: 'I provide professional services to the community' },
+                    { value: 'CUSTOMER', label: '🛍️ Customer', description: 'Looking for card design, wedding services, priests, and cultural events' },
+                    { value: 'SMALL_BUSINESS', label: '🏪 Small Business', description: 'Need basic digital tools: website, QR menus, payment processing' },
+                    { value: 'GROWING_BUSINESS', label: '🏢 Growing Business', description: 'Need managed setup: custom websites, automation, inventory systems' },
+                    { value: 'SERVICE_PROVIDER', label: '🎭 Service Provider', description: 'Provide services: priests, vendors, professionals, cultural services' },
                   ].map((role) => (
                     <div key={role.value} className="relative">
                       <label className="flex items-start cursor-pointer group">
@@ -211,8 +231,8 @@ export default function SignUp() {
                 </div>
               </div>
 
-              {/* Business Type (only show for business owners) */}
-              {formData.role === 'BUSINESS_OWNER' && (
+              {/* Business/Service Type Selection */}
+              {(formData.role === 'SMALL_BUSINESS' || formData.role === 'GROWING_BUSINESS') && (
                 <div className="mt-5">
                   <label htmlFor="businessType" className="block text-base font-semibold text-gray-900 mb-2">
                     Business category:
@@ -225,6 +245,25 @@ export default function SignUp() {
                   >
                     <option value="" className="text-gray-500">Select your business category</option>
                     {businessTypes.map((type) => (
+                      <option key={type} value={type} className="text-gray-900">{type}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {formData.role === 'SERVICE_PROVIDER' && (
+                <div className="mt-5">
+                  <label htmlFor="serviceType" className="block text-base font-semibold text-gray-900 mb-2">
+                    Service category:
+                  </label>
+                  <select
+                    id="serviceType"
+                    value={formData.serviceType}
+                    onChange={(e) => handleInputChange('serviceType', e.target.value)}
+                    className="block w-full px-3 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-crimson-500 focus:border-crimson-500 text-sm bg-white hover:border-gray-400 transition-colors"
+                  >
+                    <option value="" className="text-gray-500">Select your service category</option>
+                    {serviceTypes.map((type) => (
                       <option key={type} value={type} className="text-gray-900">{type}</option>
                     ))}
                   </select>
